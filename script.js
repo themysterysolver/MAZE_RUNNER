@@ -8,6 +8,8 @@ class Tile{
         const [L,R,T,B]=this.dir;
         this.x=i;
         this.y=j;
+        this.ele.style.width=tileSize+"px";
+        this.ele.style.height=tileSize+"px";
 
         this.ele.style.borderLeft= L ? "2px solid black": "none";
         this.ele.style.borderRight= R ? "2px solid black": "none";
@@ -27,6 +29,10 @@ console.log(sqSize);
 const sq=document.getElementById("square");
 console.log(sq);
 const tileArray=[];
+
+const tileSize=50;
+
+
 for(let i=0;i<sqSize;i++){
     for(let j=0;j<sqSize;j++){
         let t=new Tile(sqSize*i+j,mazeMap[sqSize*i+j],i,j)
@@ -36,8 +42,9 @@ for(let i=0;i<sqSize;i++){
 }
 console.log(sq);
 
-sq.style.width=(sqSize*20)+"px";
-sq.style.height=(sqSize*20)+"px";
+
+sq.style.width=(sqSize*tileSize)+"px";
+sq.style.height=(sqSize*tileSize)+"px";
 
 let dir=[[0,-1],[-1,0]]
 tileArray.forEach(element => {
