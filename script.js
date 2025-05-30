@@ -1,5 +1,5 @@
-    class Tile{
-        constructor(id,arr,i,j){
+class Tile{
+            constructor(id,arr,i,j){
             this.ID=id;
             this.dir=arr; // L R T B
             this.ele=document.createElement('div');
@@ -67,7 +67,14 @@
     //-----------Creating RED------------
     const red=document.createElement('div');
     red.classList.add("redIt");
-
    tileArray[start1].ele.appendChild(red);
 
-   
+   //EVENT-LOOP
+   document.addEventListener('keydown',function(e){
+    switch(e.key){
+        case 'ArrowUp': console.log("UP"); break;
+        case 'ArrowDown': console.log("DOWN");break;
+        case 'ArrowLeft': console.log("LEFT");break;
+        case 'ArrowRight': console.log("RIGHT");break;
+      }
+    });
