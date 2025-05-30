@@ -1,7 +1,7 @@
 const mazeMap = { //LRTB
   0: [true, false, true, true],
   1: [false, false, true, true],
-  2: [false, false, false, true],
+  2: [false, false, true, true],
   3: [false, true,true, false],
   4: [true, true, true, false],
   5: [true, false, false, false],
@@ -25,3 +25,5 @@ const mazeMap = { //LRTB
   23: [true, false, false, true],
   24: [false, true, false, true],
 };
+const start1=0;
+const end1=22;
