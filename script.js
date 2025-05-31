@@ -170,3 +170,36 @@ document.addEventListener('keydown',function(e){
             break;
         }
 });
+
+let touchX, touchY;
+
+document.addEventListener('touchstart', function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const touch = e.changedTouches[0]
+    touchX = touch.screenX
+    touchY = touch.screenY
+});
+
+document.addEventListener('touchend', function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const [L,R,T,B]=tileArray[current].dir;
+    const touch = e.changedTouches[0]
+    const x1 = touch.screenX
+    const y1 = touch.screenY
+    const x0 = touchX
+    const y0 = touchY
+    const dx = x1 - x0
+    const dy = y0 - y1
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI
+    console.log(dx, dy, angle)
+    if(angle >= -45 && angle <= 45)
+        current=moveRight(current, R)
+    else if(angle >= 45 && angle <= 135)
+        current=moveUp(current, T)
+    else if(angle >= 135 || angle <= -135)
+        current=moveLeft(current, L)
+    else if(angle >= -135 && angle <= -45)
+        current=moveDown(current, B)
+});
