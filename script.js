@@ -90,60 +90,116 @@ hasWon=(current)=>{
     }
     return false;
 }
+
+function moveUp(current, T){
+    var temp=current;
+    if(current-sqSize>=0 && !T){
+        red.remove();
+        current-=sqSize;
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
+
+function moveLeft(current, L){
+    var temp=current;
+    if(current-1>=0 && !L){
+        red.remove();
+        current-=1
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    } 
+    return current;
+}
+
+function moveDown(current, B){
+    var temp=current;
+    if(current+sqSize<sqSize*sqSize && !B){
+        red.remove();
+        current+=sqSize;
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
+
+function moveRight(current, R){
+    var temp=current;
+    if(current+1<sqSize*sqSize && !R){
+        red.remove();
+        current+=1
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
 //EVENT-LOOP
 let current=start;
 tileArray[start].ele.classList.add("imp_path","path");
 document.addEventListener('keydown',function(e){
     const [L,R,T,B]=tileArray[current].dir;
-    var temp=current;
     switch(e.key){
         case 'ArrowUp': 
-            if(current-sqSize>=0 && !T){
-                red.remove();
-                current-=sqSize;
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveUp(current, T);
             break;
         case 'ArrowDown': 
-            if(current+sqSize<sqSize*sqSize && !B){
-                red.remove();
-                current+=sqSize;
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveDown(current, B);
             break;
         case 'ArrowLeft':
-            if(current-1>=0 && !L){
-                red.remove();
-                current-=1
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            } 
+            current=moveLeft(current, L);
             break;
         case 'ArrowRight':
-            if(current+1<sqSize*sqSize && !R){
-                red.remove();
-                current+=1
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveRight(current, R);
             break;
         }
+});
+
+let touchX, touchY;
+
+document.addEventListener('touchstart', function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const touch = e.changedTouches[0]
+    touchX = touch.screenX
+    touchY = touch.screenY
+});
+
+document.addEventListener('touchend', function (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const [L,R,T,B]=tileArray[current].dir;
+    const touch = e.changedTouches[0]
+    const x1 = touch.screenX
+    const y1 = touch.screenY
+    const x0 = touchX
+    const y0 = touchY
+    const dx = x1 - x0
+    const dy = y0 - y1
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI
+    console.log(dx, dy, angle)
+    if(angle >= -45 && angle <= 45)
+        current=moveRight(current, R)
+    else if(angle >= 45 && angle <= 135)
+        current=moveUp(current, T)
+    else if(angle >= 135 || angle <= -135)
+        current=moveLeft(current, L)
+    else if(angle >= -135 && angle <= -45)
+        current=moveDown(current, B)
 });
