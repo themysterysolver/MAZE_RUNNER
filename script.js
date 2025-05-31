@@ -1,3 +1,4 @@
+
 class Tile{
         constructor(id,arr,i,j){
         this.ID=id;
@@ -15,6 +16,9 @@ class Tile{
         this.ele.style.borderRight= R ? "4px solid black": "none";
         this.ele.style.borderTop= T ? "4px solid black": "none";
         this.ele.style.borderBottom= B ? "4px solid black": "none";
+
+        this.visited=false;
+        
     }
     getElement(){
         return this.ele;
@@ -72,6 +76,7 @@ tileArray.forEach(element => {
 const red=document.createElement('div');
 red.classList.add("redIt");
 tileArray[start].ele.appendChild(red);
+tileArray[start].ele.visited=true;
 
    
 
@@ -87,39 +92,57 @@ hasWon=(current)=>{
 }
 //EVENT-LOOP
 let current=start;
+tileArray[start].ele.classList.add("imp_path","path");
 document.addEventListener('keydown',function(e){
     const [L,R,T,B]=tileArray[current].dir;
+    var temp=current;
     switch(e.key){
         case 'ArrowUp': 
             if(current-sqSize>=0 && !T){
                 red.remove();
                 current-=sqSize;
+                if(tileArray[current].ele.classList.contains("path")){
+                    tileArray[temp].ele.classList.remove("path")
+                }
                 if(hasWon(current)){return};
                 tileArray[current].ele.appendChild(red);
+                tileArray[current].ele.classList.add("path");
             }
             break;
         case 'ArrowDown': 
             if(current+sqSize<sqSize*sqSize && !B){
                 red.remove();
                 current+=sqSize;
+                if(tileArray[current].ele.classList.contains("path")){
+                    tileArray[temp].ele.classList.remove("path")
+                }
                 if(hasWon(current)){return};
                 tileArray[current].ele.appendChild(red);
+                tileArray[current].ele.classList.add("path");
             }
             break;
         case 'ArrowLeft':
             if(current-1>=0 && !L){
                 red.remove();
                 current-=1
+                if(tileArray[current].ele.classList.contains("path")){
+                    tileArray[temp].ele.classList.remove("path")
+                }
                 if(hasWon(current)){return};
                 tileArray[current].ele.appendChild(red);
+                tileArray[current].ele.classList.add("path");
             } 
             break;
         case 'ArrowRight':
             if(current+1<sqSize*sqSize && !R){
                 red.remove();
                 current+=1
+                if(tileArray[current].ele.classList.contains("path")){
+                    tileArray[temp].ele.classList.remove("path")
+                }
                 if(hasWon(current)){return};
                 tileArray[current].ele.appendChild(red);
+                tileArray[current].ele.classList.add("path");
             }
             break;
         }

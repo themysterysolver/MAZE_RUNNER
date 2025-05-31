@@ -35,3 +35,6 @@ body{
     width: 100%;
     height: 100%;
 }
+.path,.imp_path{
+    background-color: rgb(226, 93, 93);
+}
