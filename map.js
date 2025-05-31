@@ -21,7 +21,7 @@ const mazeMap = { //LRTB
   19: [true, true, false, false],
   20: [true, true, false, true],
   21: [true, false, false, true],
-  22: [false, true, true, false],
+  22: [false, true, true, true],
   23: [true, false, false, true],
   24: [false, true, false, true],
 };

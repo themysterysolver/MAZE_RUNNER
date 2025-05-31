@@ -16,6 +16,7 @@ class Tile{
             this.ele.style.borderTop= T ? "2px solid black": "none";
             this.ele.style.borderBottom= B ? "2px solid black": "none";
 
+
         }
         getElement(){
             return this.ele;
@@ -78,3 +79,5 @@ class Tile{
         case 'ArrowRight': console.log("RIGHT");break;
       }
     });
+
+tileArray[22].ele.innerHTML="<div class=\"endTile\">END</div>";

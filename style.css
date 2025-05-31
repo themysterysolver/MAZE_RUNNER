@@ -1,5 +1,9 @@
 .tile{
     box-sizing: border-box;
+    background-color: darkgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #square{
     display: flex;
@@ -18,6 +22,14 @@ body{
 .redIt{
     border-radius: 100%;
     background-color: red;
+    width: 70%;
+    height: 70%;
+}
+.endTile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: cornsilk;
     width: 100%;
     height: 100%;
 }
