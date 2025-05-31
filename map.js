@@ -1,4 +1,4 @@
-const mazeMap = { //LRTB
+const mazeMap1 = { //LRTB
   0: [true, false, true, true],
   1: [false, false, true, true],
   2: [false, false, true, true],

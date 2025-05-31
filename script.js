@@ -20,6 +20,8 @@ class Tile{
         return this.ele;
     }
 }
+
+const [start,end,mazeMap]=[[start1,end1,mazeMap1],[start2,end2,mazeMap2]][1]
 console.log(mazeMap);
 
 const sqSize=Math.sqrt(Math.max(...Object.keys(mazeMap).map(Number))+1);
@@ -29,7 +31,7 @@ const sq=document.getElementById("square");
 console.log(sq);
 const tileArray=[];
 
-const tileSize=50;
+const tileSize=30;
 
 
 for(let i=0;i<sqSize;i++){
@@ -45,35 +47,37 @@ console.log(sq);
 sq.style.width=(sqSize*tileSize)+"px";
 sq.style.height=(sqSize*tileSize)+"px";
 
-let dir=[[0,-1],[-1,0]]
-tileArray.forEach(element => {
-    let x=element.x;
-    let y=element.y;
-    const [L,R,T,B]=element.dir;
-    if(x>0){
-        if(T){
-            element.ele.style.borderTop="none";
-        }
-    }
-    if(y>0){
-        if(L){
-            element.ele.style.borderLeft="none";
-        }
-    }
-});
+
+
+// let dir=[[0,-1],[-1,0]]
+// tileArray.forEach(element => {
+//     let x=element.x;
+//     let y=element.y;
+//     const [L,R,T,B]=element.dir;
+//     if(x>0){
+//         if(T){
+//             element.ele.style.borderTop="none";
+//         }
+//     }
+//     if(y>0){
+//         if(L){
+//             element.ele.style.borderLeft="none";
+//         }
+//     }
+// });
 
 
 //-----------Creating RED------------
 const red=document.createElement('div');
 red.classList.add("redIt");
-tileArray[start1].ele.appendChild(red);
+tileArray[start].ele.appendChild(red);
 
    
 
-tileArray[22].ele.innerHTML="<div class=\"endTile\">END</div>";
+tileArray[end].ele.innerHTML="<div class=\"endTile\">END</div>";
 
 hasWon=(current)=>{
-    if(current==end1){
+    if(current==end){
         alert("You won!");
         this.location.reload();
         return true;
@@ -81,7 +85,7 @@ hasWon=(current)=>{
     return false;
 }
 //EVENT-LOOP
-let current=start1;
+let current=start;
 document.addEventListener('keydown',function(e){
     const [L,R,T,B]=tileArray[current].dir;
     switch(e.key){
