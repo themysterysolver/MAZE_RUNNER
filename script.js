@@ -90,60 +90,83 @@ hasWon=(current)=>{
     }
     return false;
 }
+
+function moveUp(current, T){
+    var temp=current;
+    if(current-sqSize>=0 && !T){
+        red.remove();
+        current-=sqSize;
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
+
+function moveLeft(current, L){
+    var temp=current;
+    if(current-1>=0 && !L){
+        red.remove();
+        current-=1
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    } 
+    return current;
+}
+
+function moveDown(current, B){
+    var temp=current;
+    if(current+sqSize<sqSize*sqSize && !B){
+        red.remove();
+        current+=sqSize;
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
+
+function moveRight(current, R){
+    var temp=current;
+    if(current+1<sqSize*sqSize && !R){
+        red.remove();
+        current+=1
+        if(tileArray[current].ele.classList.contains("path")){
+            tileArray[temp].ele.classList.remove("path")
+        }
+        if(hasWon(current)){return};
+        tileArray[current].ele.appendChild(red);
+        tileArray[current].ele.classList.add("path");
+    }
+    return current;
+}
 //EVENT-LOOP
 let current=start;
 tileArray[start].ele.classList.add("imp_path","path");
 document.addEventListener('keydown',function(e){
     const [L,R,T,B]=tileArray[current].dir;
-    var temp=current;
     switch(e.key){
         case 'ArrowUp': 
-            if(current-sqSize>=0 && !T){
-                red.remove();
-                current-=sqSize;
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveUp(current, T);
             break;
         case 'ArrowDown': 
-            if(current+sqSize<sqSize*sqSize && !B){
-                red.remove();
-                current+=sqSize;
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveDown(current, B);
             break;
         case 'ArrowLeft':
-            if(current-1>=0 && !L){
-                red.remove();
-                current-=1
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            } 
+            current=moveLeft(current, L);
             break;
         case 'ArrowRight':
-            if(current+1<sqSize*sqSize && !R){
-                red.remove();
-                current+=1
-                if(tileArray[current].ele.classList.contains("path")){
-                    tileArray[temp].ele.classList.remove("path")
-                }
-                if(hasWon(current)){return};
-                tileArray[current].ele.appendChild(red);
-                tileArray[current].ele.classList.add("path");
-            }
+            current=moveRight(current, R);
             break;
         }
 });
