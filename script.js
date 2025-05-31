@@ -11,17 +11,19 @@ class Tile{
         this.ele.style.width=tileSize+"px";
        this.ele.style.height=tileSize+"px";
 
-        this.ele.style.borderLeft= L ? "2px solid black": "none";
-        this.ele.style.borderRight= R ? "2px solid black": "none";
-        this.ele.style.borderTop= T ? "2px solid black": "none";
-        this.ele.style.borderBottom= B ? "2px solid black": "none";
+        this.ele.style.borderLeft= L ? "4px solid black": "none";
+        this.ele.style.borderRight= R ? "4px solid black": "none";
+        this.ele.style.borderTop= T ? "4px solid black": "none";
+        this.ele.style.borderBottom= B ? "4px solid black": "none";
     }
     getElement(){
         return this.ele;
     }
 }
+const arr=[[start1,end1,mazeMap1,tileSize1],[start2,end2,mazeMap2,tileSize2]]
 
-const [start,end,mazeMap]=[[start1,end1,mazeMap1],[start2,end2,mazeMap2]][1]
+const rIdx=Math.floor(Math.random()*arr.length);
+const [start,end,mazeMap,tileSize]=arr[rIdx]
 console.log(mazeMap);
 
 const sqSize=Math.sqrt(Math.max(...Object.keys(mazeMap).map(Number))+1);
@@ -31,7 +33,6 @@ const sq=document.getElementById("square");
 console.log(sq);
 const tileArray=[];
 
-const tileSize=30;
 
 
 for(let i=0;i<sqSize;i++){
@@ -49,22 +50,22 @@ sq.style.height=(sqSize*tileSize)+"px";
 
 
 
-// let dir=[[0,-1],[-1,0]]
-// tileArray.forEach(element => {
-//     let x=element.x;
-//     let y=element.y;
-//     const [L,R,T,B]=element.dir;
-//     if(x>0){
-//         if(T){
-//             element.ele.style.borderTop="none";
-//         }
-//     }
-//     if(y>0){
-//         if(L){
-//             element.ele.style.borderLeft="none";
-//         }
-//     }
-// });
+let dir=[[0,-1],[-1,0]]
+tileArray.forEach(element => {
+    let x=element.x;
+    let y=element.y;
+    const [L,R,T,B]=element.dir;
+    if(x>0){
+        if(T){
+            element.ele.style.borderTop="none";
+        }
+    }
+    if(y>0){
+        if(L){
+            element.ele.style.borderLeft="none";
+        }
+    }
+});
 
 
 //-----------Creating RED------------

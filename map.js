@@ -27,3 +27,4 @@ const mazeMap1 = { //LRTB
 };
 const start1=0;
 const end1=22;
+const tileSize1=50;

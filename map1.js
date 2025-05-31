@@ -226,5 +226,6 @@ const mazeMap2 = {
   224: [false,true,false,true],
 };
 
+const tileSize2=30
 const start2=210
 const end2=224
